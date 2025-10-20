@@ -1,9 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional: custom styles */
 body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-  background-color: #f9fafb;
+  @apply bg-gray-100 text-gray-900;
 }
 
-input, button {
-  font-size: 1rem;
+button {
+  @apply px-4 py-2 rounded-lg bg-primary text-white hover:bg-blue-700 transition;
 }
