@@ -610,7 +610,7 @@ def is_valid_cookie(cookie):
 @app.route('/')
 def index():
     """Serve the main HTML page"""
-    return send_from_directory('.', 'index.html')
+    return send_from_directory('..', 'index.html')
 
 @app.route('/health')
 def health_check():
