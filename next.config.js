@@ -12,8 +12,17 @@ const nextConfig = {
       {
         source: '/submit',
         destination: 'http://localhost:5001/submit',
+      },
+      {
+        source: '/health',
+        destination: 'http://localhost:5001/health',
+      },
+      {
+        source: '/debug',
+        destination: 'http://localhost:5001/debug',
       }
     ];
   }
 }
+
 module.exports = nextConfig
