@@ -1,10 +1,5 @@
 import { useState } from "react";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { supabase } from "../supabaseClient";
 
 export default function Home() {
   const [title, setTitle] = useState("");
@@ -12,7 +7,7 @@ export default function Home() {
   const [webhookUrl, setWebhookUrl] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!title || !directory || !webhookUrl) {
@@ -35,9 +30,8 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-50">
-      <h1 className="text-4xl font-bold mb-6 text-center">Generate Website</h1>
-
+    <main className="flex flex-col items-center justify-center min-h-screen p-6">
+      <h1 className="text-4xl font-bold mb-6">Generate Website</h1>
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md flex flex-col gap-4"
@@ -47,15 +41,15 @@ export default function Home() {
           placeholder="Website Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="border border-gray-300 p-2 rounded focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 p-2 rounded"
           required
         />
         <input
           type="text"
-          placeholder="Directory Name (e.g., my-site)"
+          placeholder="Directory Name (e.g. my-site)"
           value={directory}
           onChange={(e) => setDirectory(e.target.value.toLowerCase())}
-          className="border border-gray-300 p-2 rounded focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 p-2 rounded"
           required
         />
         <input
@@ -63,12 +57,12 @@ export default function Home() {
           placeholder="Webhook URL"
           value={webhookUrl}
           onChange={(e) => setWebhookUrl(e.target.value)}
-          className="border border-gray-300 p-2 rounded focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 p-2 rounded"
           required
         />
         <button
           type="submit"
-          className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+          className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
         >
           Generate Website
         </button>
