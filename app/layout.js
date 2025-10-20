@@ -1,3 +1,5 @@
+import './globals.css';
+
 export const metadata = {
   title: "RBLX Forcer Generator",
   description: "Generate custom websites with webhook integration using RBLX Forcer",

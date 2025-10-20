@@ -45,6 +45,13 @@ export default function HomePage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 text-white">
       <h1 className="text-3xl font-bold mb-6">RBLX Generator</h1>
+      
+      <a 
+        href="/age-forcer"
+        className="mb-4 bg-white/20 text-white px-6 py-2 rounded-lg hover:bg-white/30 transition"
+      >
+        ← Back to Age Forcer
+      </a>
 
       <div className="bg-white/10 p-6 rounded-2xl shadow-xl w-80 flex flex-col gap-3">
         <input

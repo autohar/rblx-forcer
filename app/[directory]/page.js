@@ -1,7 +1,8 @@
 import { supabase } from "../../supabaseClient";
 
 export default async function DirectoryPage({ params }) {
-  const { directory } = params;
+  const resolvedParams = await params;
+  const { directory } = resolvedParams;
 
   // Fetch the site info from Supabase
   const { data, error } = await supabase
