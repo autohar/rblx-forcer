@@ -1,13 +1,8 @@
 import { GetServerSideProps } from "next";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { supabase } from "../supabaseClient";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const directory = params?.directory as string;
+  const directory = params?.directory;
 
   const { data, error } = await supabase
     .from("websites")
@@ -15,14 +10,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     .eq("directory", directory)
     .single();
 
-  if (!data || error) {
-    return { notFound: true };
-  }
+  if (!data || error) return { notFound: true };
 
   return { props: { site: data } };
 };
 
-export default function GeneratedSite({ site }: { site: any }) {
+export default function GeneratedSite({ site }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-10">
       <div className="bg-white shadow-xl rounded-2xl p-10 max-w-xl text-center">
@@ -31,7 +24,7 @@ export default function GeneratedSite({ site }: { site: any }) {
           Welcome to <strong>{site.directory}</strong>!
         </p>
         <p className="mt-6 text-sm text-gray-400">
-          (Generated site using rblx-forcer)
+          (Generated using rblx-forcer)
         </p>
       </div>
     </div>
