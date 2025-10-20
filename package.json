@@ -1,23 +1,14 @@
 {
-  "name": "rblx-forcer",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
   "dependencies": {
-    "next": "14.2.3",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.13",
-    "typescript": "^5.5.3",
-    "@types/react": "^18.3.4",
-    "@types/node": "^20.14.10"
+    "@supabase/supabase-js": "^2.75.1",
+    "@tailwindcss/postcss": "^4.1.14",
+    "autoprefixer": "^10.4.21",
+    "flask": "^0.2.10",
+    "next": "^15.5.6",
+    "postcss": "^8.5.6",
+    "python": "^0.0.4",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwindcss": "^4.1.14"
   }
 }
