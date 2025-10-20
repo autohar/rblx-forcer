@@ -1,7 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 body {
-  @apply bg-gray-50 text-gray-900;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background-color: #f9fafb;
+}
+
+input, button {
+  font-size: 1rem;
 }
