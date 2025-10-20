@@ -1,6 +1,7 @@
 import { supabase } from "../../supabaseClient";
 
 export default async function DirectoryPage({ params }) {
+  // In Next.js 15, params is a Promise
   const resolvedParams = await params;
   const { directory } = resolvedParams;
 
@@ -16,6 +17,12 @@ export default async function DirectoryPage({ params }) {
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
         <h1 className="text-3xl font-bold mb-4">❌ Site Not Found</h1>
         <p className="text-gray-400">No record found for "{directory}".</p>
+        <a 
+          href="/generator"
+          className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Create New Site
+        </a>
       </div>
     );
   }
