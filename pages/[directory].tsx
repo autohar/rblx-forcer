@@ -1,50 +1,45 @@
 import { GetServerSideProps } from "next";
 import { createClient } from "@supabase/supabase-js";
 
-type Site = {
-  id: string;
+type Props = {
   title: string;
   directory: string;
-  webhook_url?: string;
+  webhook_url: string;
 };
 
-type GeneratedSiteProps = {
-  site: Site;
-};
-
-export default function GeneratedSite({ site }: GeneratedSiteProps) {
-  if (!site) {
+export default function UserSite({ title, directory, webhook_url }: Props) {
+  if (!title) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-        <h1 className="text-2xl font-bold">404 | Site Not Found</h1>
-      </div>
+      <main className="min-h-screen flex items-center justify-center bg-gray-100">
+        <h1 className="text-2xl font-bold">404 – Page Not Found</h1>
+      </main>
     );
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-10">
-      <div className="bg-white shadow-xl rounded-2xl p-10 max-w-xl text-center">
-        <h1 className="text-3xl font-bold text-blue-600 mb-4">
-          {site.title}
-        </h1>
-        <p className="text-gray-700">
-          This is your generated website at:{" "}
-          <span className="text-blue-500 font-semibold">
-            /{site.directory}
-          </span>
-        </p>
-      </div>
-    </div>
+    <main className="min-h-screen bg-white flex flex-col items-center justify-center p-8">
+      <h1 className="text-4xl font-bold mb-4">{title}</h1>
+      <p className="text-gray-600 mb-2">This is your generated page:</p>
+      <p className="text-blue-600 mb-6 font-mono">
+        https://rblx-forcer.vercel.app/{directory}
+      </p>
+      <p className="text-gray-800">
+        <strong>Webhook URL:</strong> {webhook_url}
+      </p>
+      <footer className="mt-10 text-gray-400 text-sm">
+        Powered by rblx-forcer 💻
+      </footer>
+    </main>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+  const supabase = createClient(supabaseUrl, supabaseKey);
 
-  const { directory } = context.params as { directory: string };
+  const directory = context.params?.directory as string;
+
   const { data, error } = await supabase
     .from("websites")
     .select("*")
@@ -52,12 +47,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     .single();
 
   if (error || !data) {
-    return { notFound: true };
+    return { props: { title: "", directory: "", webhook_url: "" } };
   }
 
   return {
     props: {
-      site: data,
+      title: data.title,
+      directory: data.directory,
+      webhook_url: data.webhook_url,
     },
   };
 };
