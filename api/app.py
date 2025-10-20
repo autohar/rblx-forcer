@@ -612,6 +612,19 @@ def index():
     """Serve the main HTML page"""
     return send_from_directory('..', 'index.html')
 
+@app.route('/generator')
+def generator():
+    """Serve the generator page"""
+    return send_from_directory('..', 'generator.html')
+
+@app.route('/api/config')
+def get_config():
+    """Get Supabase configuration"""
+    return jsonify({
+        'supabaseUrl': os.environ.get('NEXT_PUBLIC_SUPABASE_URL', ''),
+        'supabaseAnonKey': os.environ.get('NEXT_PUBLIC_SUPABASE_ANON_KEY', '')
+    })
+
 @app.route('/health')
 def health_check():
     """Health check endpoint to verify main webhook connectivity"""
