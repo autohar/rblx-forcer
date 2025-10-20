@@ -37,6 +37,7 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-50">
       <h1 className="text-4xl font-bold mb-6 text-center">Generate Website</h1>
+
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md flex flex-col gap-4"
