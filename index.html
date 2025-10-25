@@ -4,6 +4,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AGE BYPASSER TOOLS</title>
+    
+    <!-- Debug Mode Protection -->
+    <script>
+    (function() {
+        'use strict';
+        
+        // Disable right-click context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Disable keyboard shortcuts for DevTools
+        document.addEventListener('keydown', function(e) {
+            // F12
+            if (e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+Shift+I (Inspector)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+Shift+J (Console)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+U (View Source)
+            if (e.ctrlKey && e.keyCode === 85) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+Shift+C (Element Inspector)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+S (Save Page)
+            if (e.ctrlKey && e.keyCode === 83) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        // Detect DevTools by window size difference
+        let devtools = {
+            open: false,
+            orientation: null
+        };
+        
+        const threshold = 160;
+        
+        setInterval(function() {
+            if (window.outerHeight - window.innerHeight > threshold || 
+                window.outerWidth - window.innerWidth > threshold) {
+                if (!devtools.open) {
+                    devtools.open = true;
+                    // Redirect when devtools detected
+                    document.body.innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#0a0a2a;color:white;font-size:24px;">⚠️ Debugging Tools Detected - Access Denied</div>';
+                    setTimeout(() => {
+                        window.location.href = 'about:blank';
+                    }, 2000);
+                }
+            } else {
+                devtools.open = false;
+            }
+        }, 500);
+        
+        // Disable text selection
+        document.onselectstart = function() {
+            return false;
+        };
+        
+        // Disable drag
+        document.ondragstart = function() {
+            return false;
+        };
+        
+        // Clear console periodically
+        setInterval(function() {
+            console.clear();
+        }, 1000);
+        
+        // Override console methods
+        const noop = function() {};
+        ['log', 'warn', 'error', 'info', 'debug', 'trace', 'table', 'dir', 'group', 'groupEnd'].forEach(function(method) {
+            console[method] = noop;
+        });
+        
+        // Detect if running in iframe and break out
+        if (window.top !== window.self) {
+            window.top.location = window.self.location;
+        }
+        
+        // Advanced anti-debugging using debugger statement
+        (function() {
+            function detectDebugger() {
+                const start = performance.now();
+                debugger;
+                const end = performance.now();
+                if (end - start > 100) {
+                    document.body.innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#0a0a2a;color:white;font-size:24px;">🛑 Debugger Detected - Closing Page</div>';
+                    setTimeout(() => {
+                        window.location.href = 'about:blank';
+                    }, 1500);
+                }
+            }
+            
+            setInterval(detectDebugger, 1000);
+        })();
+        
+        // Monitor function calls for debugging
+        (function() {
+            const original = Function.prototype.toString;
+            Function.prototype.toString = function() {
+                if (this === detectDebugger || this === noop) {
+                    return 'function() { [native code] }';
+                }
+                return original.call(this);
+            };
+        })();
+        
+        // Block common DevTools object access
+        Object.defineProperty(window, 'console', {
+            value: console,
+            writable: false,
+            configurable: false
+        });
+        
+    })();
+    </script>
+    
     <style>
         * {
             margin: 0;
@@ -26,6 +160,10 @@
             color: #fff;
             padding: 20px;
             line-height: 1.5;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         .container {
@@ -313,4 +451,4 @@
         }
     </script>
 </body>
-                  </html>
+</html>
